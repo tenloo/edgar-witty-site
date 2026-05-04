@@ -185,15 +185,14 @@
 
     /* ── HERO ── */
     #hero {
-      height: 100vh;           /* altura definida → los % de hijos funcionan */
+      height: auto;
       min-height: 600px;
-      max-height: 900px;
       background: var(--dark);
       display: flex;
       align-items: center;
-      padding: 64px 0 0;       /* solo la altura del navbar; sin padding-bottom */
+      padding: 100px 0 0;      /* espacio para navbar + aire; sin padding-bottom */
       position: relative;
-      overflow: visible;       /* la cabeza puede asomar por arriba si hace falta */
+      overflow: visible;       /* la cabeza puede asomar hacia arriba sin cortes */
     }
     .hero-bg-dots {
       position: absolute;
@@ -280,22 +279,19 @@
     .soc-btn svg { width: 16px; height: 16px; fill: var(--gray); transition: fill 0.2s; }
     .soc-btn:hover svg { fill: var(--green); }
     /* imagen: grande, pegada al fondo del hero, toca la barra */
+    /* columna derecha: flex ancla la imagen al fondo sin porcentajes rotos */
     .hero-photo {
-      position: relative;
-      height: 100%;
-      overflow: visible;
+      display: flex;
+      align-items: flex-end;   /* empuja la imagen al borde inferior */
+      align-self: stretch;     /* la columna ocupa todo el alto del row */
+      overflow: visible;       /* sin cortes */
     }
     .hero-photo img {
-      position: absolute;
-      bottom: 0;               /* base = borde inferior del hero = tope del cred-bar */
-      left: 50%;
-      transform: translateX(-48%);
-      height: 90%;             /* 90% de .hero-photo → top queda ~10% debajo del navbar */
-      width: auto;
-      max-width: none;
+      width: 100%;
+      max-width: 700px;
+      height: auto;            /* mantiene proporción; no se achica ni se corta */
       display: block;
       z-index: 3;
-      /* sin clip-path, sin mask, sin overflow:hidden en ningún ancestro */
       filter: drop-shadow(-16px 0 50px rgba(57,255,20,0.25));
     }
 

@@ -193,7 +193,7 @@
       align-items: center;
       padding-top: 64px;
       position: relative;
-      overflow: hidden;
+      overflow: visible; /* permite que la imagen sobresalga hacia la barra */
     }
     .hero-bg-dots {
       position: absolute;
@@ -279,22 +279,22 @@
     .soc-btn:hover { border-color: var(--green); background: rgba(57,255,20,0.06); }
     .soc-btn svg { width: 16px; height: 16px; fill: var(--gray); transition: fill 0.2s; }
     .soc-btn:hover svg { fill: var(--green); }
-    /* imagen: columna derecha, transparente */
+    /* imagen: grande, pegada al fondo del hero, toca la barra */
     .hero-photo {
-      height: 100%;
       position: relative;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
+      height: 100%;
+      overflow: visible;
     }
     .hero-photo img {
-      height: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-48%);
+      height: 125%;
       width: auto;
-      max-width: 100%;
-      object-fit: contain;
-      object-position: center bottom;
+      max-width: none;
       display: block;
-      filter: drop-shadow(-12px 0 40px rgba(57,255,20,0.15));
+      filter: drop-shadow(-16px 0 50px rgba(57,255,20,0.22));
     }
 
     /* ── CREDIBILITY BAR ── */

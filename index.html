@@ -186,32 +186,42 @@
     /* ── HERO ── */
     #hero {
       height: auto;
-      min-height: 600px;
+      min-height: 640px;
       background: var(--dark);
       display: flex;
       align-items: center;
-      padding: 100px 0 0;      /* espacio para navbar + aire; sin padding-bottom */
+      padding: 100px 0 0;
       position: relative;
-      overflow: visible;       /* la cabeza puede asomar hacia arriba sin cortes */
+      overflow: visible;
+    }
+    /* Transición fluida hero → cred-bar sin línea visible */
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 64px;
+      background: linear-gradient(to bottom, transparent, var(--dark));
+      pointer-events: none;
+      z-index: 10;
     }
     .hero-bg-dots {
       position: absolute;
       top: 0; right: 0;
-      width: 55%;
+      width: 60%;
       height: 100%;
       background-image: radial-gradient(circle, #39FF14 1px, transparent 1px);
-      background-size: 32px 32px;
-      opacity: 0.04;
+      background-size: 28px 28px;
+      opacity: 0.035;
       pointer-events: none;
     }
     .hero-glow {
       position: absolute;
-      right: 8%;
-      top: 50%;
+      right: 4%;
+      top: 48%;
       transform: translateY(-50%);
-      width: 560px;
-      height: 560px;
-      background: radial-gradient(circle, rgba(57,255,20,0.11) 0%, transparent 65%);
+      width: 720px;
+      height: 720px;
+      background: radial-gradient(circle, rgba(57,255,20,0.13) 0%, transparent 58%);
       pointer-events: none;
     }
     .hero-accent-bar {
@@ -222,10 +232,10 @@
       background: var(--green);
       z-index: 4;
     }
-    /* layout: texto izquierda, imagen derecha */
+    /* grid asimétrico: texto 40%, imagen 60% → personaje dominante */
     .hero-inner {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 40% 60%;
       align-items: center;
       gap: 0;
       width: 100%;
@@ -234,74 +244,96 @@
       z-index: 2;
     }
     .hero-text {
-      padding-right: 48px;
-      padding-top: 20px;
+      padding-right: 32px;
+      padding-bottom: 56px;
     }
     .hero-tag {
       font-size: 10px;
       font-weight: 700;
       color: var(--green);
-      letter-spacing: 3px;
+      letter-spacing: 4px;
       text-transform: uppercase;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
+      opacity: 0.85;
     }
+    /* Nombre grande, carácter tipográfico real */
     .hero-name {
       font-family: 'Brockies', 'Barlow Condensed', sans-serif;
-      font-size: clamp(72px, 7vw, 116px);
+      font-size: clamp(84px, 9.5vw, 140px);
       font-weight: normal;
-      line-height: 0.88;
+      line-height: 0.83;
       color: var(--white);
       text-transform: uppercase;
-      margin-bottom: 22px;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
     }
     .hero-name span { color: var(--green); }
     .hero-desc {
       font-size: 15px;
       color: var(--gray);
-      line-height: 1.75;
-      max-width: 380px;
-      margin-bottom: 34px;
+      line-height: 1.8;
+      max-width: 340px;
+      margin-bottom: 36px;
     }
-    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 38px; }
-    .hero-socials { display: flex; gap: 10px; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+    /* micro-interacción: botón primario con glow verde al hover */
+    .btn-primary {
+      transition: opacity 0.2s, transform 0.18s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(57,255,20,0.28);
+    }
+    .hero-socials { display: flex; gap: 8px; }
     .soc-btn {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border: 1px solid var(--border);
-      border-radius: 3px;
+      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      transition: border-color 0.2s, background 0.2s;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
     }
-    .soc-btn:hover { border-color: var(--green); background: rgba(57,255,20,0.06); }
-    .soc-btn svg { width: 16px; height: 16px; fill: var(--gray); transition: fill 0.2s; }
+    .soc-btn:hover {
+      border-color: var(--green);
+      background: rgba(57,255,20,0.07);
+      transform: translateY(-2px);
+    }
+    .soc-btn svg { width: 17px; height: 17px; fill: var(--gray); transition: fill 0.2s; }
     .soc-btn:hover svg { fill: var(--green); }
-    /* imagen: grande, pegada al fondo del hero, toca la barra */
-    /* columna derecha: flex ancla la imagen al fondo sin porcentajes rotos */
+    /* columna imagen: flex ancla al fondo, personaje imponente */
     .hero-photo {
       display: flex;
-      align-items: flex-end;   /* empuja la imagen al borde inferior */
-      align-self: stretch;     /* la columna ocupa todo el alto del row */
-      overflow: visible;       /* sin cortes */
+      align-items: flex-end;
+      align-self: stretch;
+      overflow: visible;
+      justify-content: flex-end;
     }
     .hero-photo img {
       width: 100%;
-      max-width: 700px;
-      height: auto;            /* mantiene proporción; no se achica ni se corta */
+      max-width: 800px;
+      height: auto;
       display: block;
       z-index: 3;
-      filter: drop-shadow(-16px 0 50px rgba(57,255,20,0.25));
+      position: relative;
+      /* sombra dramática: verde lateral + negro inferior para enraizarlo */
+      filter:
+        drop-shadow(-24px 0 56px rgba(57,255,20,0.28))
+        drop-shadow(0 32px 48px rgba(0,0,0,0.9));
     }
 
-    /* ── CREDIBILITY BAR ── */
+    /* ── CREDIBILITY BAR ── transición invisible desde hero */
     #cred-bar {
-      background: var(--card);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 18px 0;
+      background: linear-gradient(180deg, var(--dark) 0%, var(--card) 40%, var(--card) 60%, #0e0e0e 100%);
+      border-top: none;
+      border-bottom: none;
+      padding: 20px 0;
       overflow: hidden;
+      position: relative;
+      z-index: 5;
     }
     .cred-inner {
       display: flex;
@@ -336,8 +368,8 @@
 
     /* ── SOBRE MÍ ── */
     #sobre-mi {
-      padding: 90px 0;
-      background: var(--black);
+      padding: 96px 0;
+      background: linear-gradient(180deg, #0e0e0e 0%, var(--black) 8%);
     }
     .about-grid {
       display: grid;
@@ -433,8 +465,8 @@
 
     /* ── NEGOCIOS ── */
     #negocios {
-      padding: 90px 0;
-      background: var(--dark);
+      padding: 96px 0;
+      background: linear-gradient(180deg, var(--black) 0%, var(--dark) 6%);
     }
     .biz-intro {
       font-size: 15px;
@@ -514,8 +546,8 @@
 
     /* ── TRAYECTORIA ── */
     #trayectoria {
-      padding: 90px 0;
-      background: var(--black);
+      padding: 96px 0;
+      background: linear-gradient(180deg, var(--dark) 0%, var(--black) 6%);
     }
     .tray-grid {
       display: grid;
@@ -611,8 +643,8 @@
 
     /* ── BLOG ── */
     #blog {
-      padding: 90px 0;
-      background: var(--dark);
+      padding: 96px 0;
+      background: linear-gradient(180deg, var(--black) 0%, var(--dark) 6%);
     }
     .blog-header {
       display: flex;
@@ -719,8 +751,8 @@
 
     /* ── GALERÍA ── */
     #galeria {
-      padding: 90px 0;
-      background: var(--black);
+      padding: 96px 0;
+      background: linear-gradient(180deg, var(--dark) 0%, var(--black) 6%);
     }
     .gallery-grid {
       display: grid;
@@ -770,8 +802,8 @@
 
     /* ── CONTACTO ── */
     #contacto {
-      padding: 90px 0;
-      background: var(--dark);
+      padding: 96px 0;
+      background: linear-gradient(180deg, var(--black) 0%, var(--dark) 6%);
     }
     .pub-banner {
       background: var(--green);

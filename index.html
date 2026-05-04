@@ -981,6 +981,8 @@
     #scrolltop svg { width: 18px; height: 18px; fill: var(--black); }
 
     /* ── RESPONSIVE ── */
+
+    /* Tablet: nav hamburger + layout adjustments */
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
@@ -996,11 +998,6 @@
         border-bottom: 1px solid var(--border);
       }
       .nav-links.open li a { font-size: 16px; }
-      /* hero mobile */
-      .hero-inner { grid-template-columns: 1fr; height: auto; padding: 40px 0 30px; }
-      .hero-text { padding-right: 0; }
-      .hero-photo { height: 52vw; min-height: 240px; opacity: 0.55; }
-      .hero-name { font-size: clamp(68px, 18vw, 100px); }
       .about-grid { grid-template-columns: 1fr; }
       .about-photo { height: 260px; }
       .biz-grid { grid-template-columns: 1fr 1fr; max-width: 100%; }
@@ -1009,7 +1006,103 @@
       .contact-layout { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
       .pub-banner { flex-direction: column; text-align: center; }
+      /* hero tablet: grid más estrecho */
+      .hero-inner { grid-template-columns: 44% 56%; }
+      .hero-name { font-size: clamp(64px, 9vw, 110px); }
     }
+
+    /* Mobile: hero vertical imponente */
+    @media (max-width: 768px) {
+      #hero {
+        padding: 80px 0 0;
+        min-height: auto;
+        overflow: visible;
+      }
+
+      /* Bloque vertical: texto arriba, Edgar detrás */
+      .hero-inner {
+        display: block;
+        height: auto;
+        position: relative;
+        padding: 0;
+      }
+
+      /* Texto encima con z-index alto */
+      .hero-text {
+        position: relative;
+        z-index: 2;
+        padding: 20px 20px 0;
+        padding-bottom: 210px; /* espacio para que Edgar asoma detrás */
+      }
+
+      /* Gradiente detrás del texto para legibilidad */
+      .hero-text::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          var(--dark) 0%,
+          var(--dark) 50%,
+          transparent 100%
+        );
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      /* Nombre imponente en móvil */
+      .hero-name {
+        font-size: clamp(52px, 14vw, 80px);
+        line-height: 0.84;
+        letter-spacing: -1px;
+        margin-bottom: 14px;
+      }
+      .hero-tag {
+        font-size: 9px;
+        letter-spacing: 3px;
+        margin-bottom: 14px;
+      }
+      .hero-desc {
+        font-size: 14px;
+        max-width: 100%;
+        margin-bottom: 20px;
+      }
+      .hero-btns { margin-bottom: 20px; gap: 10px; }
+      /* Botones táctiles mínimo 44px */
+      .btn-primary, .btn-outline { padding: 14px 24px; min-height: 44px; }
+
+      /* Edgar: grande, detrás del texto, base en el cred-bar */
+      .hero-photo {
+        position: absolute;
+        bottom: 0;
+        right: -8px;            /* asomo lateral izquierdo */
+        width: 72vw;
+        max-width: 380px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        overflow: visible;
+        z-index: 1;             /* detrás del texto */
+        align-self: auto;
+      }
+
+      .hero-photo img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        filter:
+          drop-shadow(-16px 0 40px rgba(57,255,20,0.3))
+          drop-shadow(0 24px 40px rgba(0,0,0,0.95));
+      }
+    }
+
+    /* Pequeños phones */
+    @media (max-width: 480px) {
+      .hero-photo { width: 78vw; right: -4px; }
+      .hero-text { padding-bottom: 190px; }
+      .hero-name { font-size: clamp(48px, 14.5vw, 72px); }
+    }
+
     @media (max-width: 600px) {
       .biz-grid { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }

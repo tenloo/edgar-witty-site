@@ -185,15 +185,14 @@
 
     /* ── HERO ── */
     #hero {
-      height: 88vh;
-      min-height: 580px;
-      max-height: 860px;
+      height: auto;
+      min-height: 520px;
       background: var(--dark);
       display: flex;
       align-items: center;
-      padding-top: 64px;
+      padding: 120px 0 50px;
       position: relative;
-      overflow: visible; /* permite que la imagen sobresalga hacia la barra */
+      overflow: visible;
     }
     .hero-bg-dots {
       position: absolute;
@@ -290,7 +289,7 @@
       bottom: 0;
       left: 50%;
       transform: translateX(-48%);
-      height: 125%;
+      height: calc(100% + 60px);
       width: auto;
       max-width: none;
       display: block;
